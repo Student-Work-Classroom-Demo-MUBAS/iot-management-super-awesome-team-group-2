@@ -2,3 +2,15 @@ body {
   background: linear-gradient(to bottom, #0b3551, #0a273b);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.hero{
+    background: url('https://wallpaperaccess.com/full/3202438.jpg') no-repeat center/cover;
+    min-height: 100vh;  /* Make the section at least as tall as the viewport */
+}
+.weather-card{
+    background-color: rgba(25, 50, 75, 0.9);
+    border-radius: 10px;
+    border: 2px solid #446080;
+}
+.weather-card h4{
+    font-weight: bold;
+}
