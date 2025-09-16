@@ -12,6 +12,9 @@ DallasTemperature sensors(&oneWire);  //Passing the OneWire reference to Dallas 
 #define DHTTYPE DHT11             // Define the sensor type
 DHT dht(DHTPIN, DHTTYPE);        // Create DHT instance
 
+// -------------------- Soil Moisture Setup ----------------
+#define SOIL_PIN 2                // ADC pin for capacitive soil moisture sensor
+
 
 void setup() {
   Serial.begin(115200); //Start serial monitor for debugging
@@ -37,8 +40,8 @@ void loop() {
   }
 
   // -------- DHT11 Reading --------
- float humidity = dht.readHumidity();        // Read humidity
- //float airTemp = dht.readTemperature();      // Read temperature in Celsius
+ float humidity = dht.readHumidity();  // Read humidity
+ //float airTemp = dht.readTemperature();    // Read temperature in Celsius
  if (isnan(humidity) || isnan(airTemp)) {   // Check if reading failed
     Serial.println("Failed to read from DHT11!");
   } else {
@@ -49,6 +52,15 @@ void loop() {
     //Serial.print(airTemp);
     //Serial.println(" °C");
   }
+
+  // -------- Soil Moisture Reading --------
+  int rawValue = analogRead(SOIL_PIN);        // Read raw analog value from sensor
+  // Map the raw value to a percentage: 100% wet -> 0% dry
+  int moisturePercent = map(rawValue, 0, 4095, 100, 0);
+
+  Serial.print("Soil Moisture: ");
+  Serial.print(moisturePercent);
+  Serial.println(" %");
 
   delay(2000);  //Wait 2 seconds before repeating
 }
