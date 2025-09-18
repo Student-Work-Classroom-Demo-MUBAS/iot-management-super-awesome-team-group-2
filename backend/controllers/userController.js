@@ -42,3 +42,42 @@ exports.register = async (req, res) =>{
         //responds http status 500 for INTERNAL SERVER ERROR  just in case
     }
 };
+
+
+//handler for user login
+exports.login = async (req, res) =>{
+    const {username, password} = req.body;
+    //Input validation when logging in
+    if(!username || !password) {
+        return res.status(400).json({error: 'Username and password required'});
+    }
+
+    try{
+        //find user in db
+        const user = await userModel.fetchUserByUsername(username);
+        if (!user){
+            return res.status(401).json({error: 'Username and password required'});
+            //responds with error 401 for UNAUTHORIZED if user don't exists
+        }
+
+        //compare password with hashed password in db
+        const passwordMatch = await bcrypt.compare(password, user.password_hash);
+        if(passwordMatch) {
+            return res.status(401).json({error: 'Invalid credentials'});
+            //responds with error 401 for UNAUTHORIZED if passwords don't match
+        }
+
+        //Generate JWT token for the user - contains userID and username
+        const token = jwt.sign(         //creates token (JWT)
+            {userId: user.user_id, username: user.username},        //known as payload, contains data to identify user
+            jwtSecret,                                          //secret string to sign the token
+            {expiresIn: '2h'} // token expires in 2 hours
+        );
+        //Respond with the token - sends token to client 
+        res.json({token});
+        } catch(err){
+            console.error(err);
+            res.status(500).json({error: 'Server error during login'});
+            //handling unexpected server errors
+        }
+}
