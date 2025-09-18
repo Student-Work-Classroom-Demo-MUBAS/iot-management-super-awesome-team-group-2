@@ -24,3 +24,17 @@ exports.addUser = async(username, passwordHash) =>{
 };
 
 //addUser module can be reused
+
+//fucntion to fetch user by their username
+exports.fetchUserByUsername = async (username) => {
+    //creating fetching module
+    const result = await pool.query(
+        `SELECT * FROM users
+        WHERE username = $1`,
+        [username]
+    );
+    //SQL fetches all columns form users table
+    //SQL returns only username match
+    return result.rows[0];
+    
+};
