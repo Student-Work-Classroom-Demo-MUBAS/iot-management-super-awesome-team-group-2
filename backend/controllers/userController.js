@@ -62,7 +62,7 @@ exports.login = async (req, res) =>{
 
         //compare password with hashed password in db
         const passwordMatch = await bcrypt.compare(password, user.password_hash);
-        if(passwordMatch) {
+        if(!passwordMatch) {
             return res.status(401).json({error: 'Invalid credentials'});
             //responds with error 401 for UNAUTHORIZED if passwords don't match
         }

@@ -10,10 +10,10 @@ const userRoutes = require('./routes/userRoutes');
 const app = express();
 
 app.use(cors());        //enable CORS
-app.use(bodyParser.json);     //to parse incoming requests with JSON payloads  
+app.use(bodyParser.json());     //to parse incoming requests with JSON payloads  
 
 
-app.use('api/users', userRoutes);
+app.use('/api/users', userRoutes);
 //mounting the user routes to /api/users, e.g. POST /api/users/register or POST /api/users/login
 
 //testing if API is running

@@ -18,7 +18,7 @@ exports.addUser = async(username, passwordHash) =>{
     //auto-generated primary keys (user_id) and username are returned in an array
     //the query result will be stored in the result variable
     
-    result.rows[0];
+    return result.rows[0];
 
     //newly created user is returned
 };
