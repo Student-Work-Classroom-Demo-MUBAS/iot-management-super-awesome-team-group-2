@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');      //middleware for parsing JSON
 const cors = require('cors');           //middleware to handle cross-origin requests
 
 //import user routes from routes folder
-const userRoutes = require('../routes/userRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 //define express app
 const app = express();
