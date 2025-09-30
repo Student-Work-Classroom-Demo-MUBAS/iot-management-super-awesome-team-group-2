@@ -8,7 +8,13 @@ async function getAllDevices() {
   return result.rows;
 }
 
+//for all cases the results of the queries are returned as arrays of rows and 
+//result.rows is the inserted row data for each function
+//creating new device, updating device, deleting device
+//returning the inserted row data
+
 // Get a device by ID
+// $1 is a placeholder for the deviceId parameter to prevent SQL injection
 async function getDeviceById(deviceId) {
   const result = await pool.query('SELECT * FROM devices WHERE device_id = $1;', [deviceId]);
   return result.rows[0];
@@ -16,6 +22,7 @@ async function getDeviceById(deviceId) {
 
 
 // Create a new device
+// same as here $1 and $2 are placeholders for deviceName and location parameters
 async function createDevice(deviceName, location) {
   const result = await pool.query(
     'INSERT INTO devices (device_name, location) VALUES ($1, $2) RETURNING *;',
