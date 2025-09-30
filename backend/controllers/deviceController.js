@@ -68,4 +68,21 @@ async function updateDevice(req, res) {
 }
 
 
+//Deletes a device by ID.
+//Sends 404 if not found, or success message with 200 if deleted.
+//Handles errors with 500
+async function deleteDevice(req, res) {
+  try {
+    const deviceId = parseInt(req.params.id);
+    const deletedDevice = await deviceModel.deleteDevice(deviceId);
+    if (!deletedDevice) {
+      return res.status(404).json({ error: 'Device not found' });
+    }
+    res.status(200).json({ message: 'Device deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete device' });
+  }
+}
+
+
 
