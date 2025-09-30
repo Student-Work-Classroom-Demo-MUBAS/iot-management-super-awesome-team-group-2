@@ -44,3 +44,11 @@ async function deleteReading(req, res) {
     res.status(500).json({ error: 'Failed to delete sensor reading' });
   }
 }
+
+
+module.exports = {
+  getAllReadings,
+  getReadingsByDeviceId,
+  createReading,
+  deleteReading,
+};
