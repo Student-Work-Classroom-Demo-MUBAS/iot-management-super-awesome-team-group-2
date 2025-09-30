@@ -6,7 +6,7 @@ const options = {
     definition: {
         openapi: '3.0.0',       //swagger version
         info: {
-            title: 'IoT Backend API',
+            title: 'IoT Backend API: Super Awesome Team',
             version: '1.0.0',        //Actual API version
             description: 'API Documentation for the IoT Backend',
         },
