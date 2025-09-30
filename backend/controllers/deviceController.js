@@ -47,4 +47,25 @@ async function createDevice(req, res) {
 }
 
 
-//
+//Takes the device ID from URL and new data from request body.
+//Updates the record in the DB.
+//Sends 404 if device for update doesn't exist.
+//Otherwise sends updated device record with 200 status.
+//Handles errors with 500.
+
+async function updateDevice(req, res) {
+  try {
+    const deviceId = parseInt(req.params.id);
+    const { device_name, location } = req.body;
+    const updatedDevice = await deviceModel.updateDevice(deviceId, device_name, location);
+    if (!updatedDevice) {
+      return res.status(404).json({ error: 'Device not found' });
+    }
+    res.status(200).json(updatedDevice);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update device' });
+  }
+}
+
+
+
