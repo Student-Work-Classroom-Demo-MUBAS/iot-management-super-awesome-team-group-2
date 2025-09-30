@@ -84,5 +84,12 @@ async function deleteDevice(req, res) {
   }
 }
 
+module.exports = {
+  getAllDevices,
+  getDeviceById,
+  createDevice,
+  updateDevice,
+  deleteDevice,
+};
 
 
