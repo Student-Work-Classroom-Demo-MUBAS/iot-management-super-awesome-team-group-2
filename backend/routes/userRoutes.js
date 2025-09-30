@@ -59,12 +59,53 @@ const userController = require('../controllers/userController');     //import us
  * it'll accept POST req JSOn body of 'username' + 'password'
  * it'll return res codes for success or err
  */
-
-
-
-
-
 router.post('/register', userController.register); //POST/register request from client will call the register function from controller
+
+/**
+ * @swagger
+ * /users/login:
+ *  post:
+ *    summary: Login a user
+ *    tags: [Users]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type:object
+ *            required:
+ *              - username
+ *              - password
+ *            properties:
+ *              username:
+ *                type: string
+ *                example: testuser
+ *              passwordd:
+ *                type: string
+ *                example: password123
+ *     responses:
+ *      200:
+ *        description: Successful login with JWT token
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                token:
+ *                  type: string
+ *                  description: JWT authentication token
+ *      400:
+ *        description: Missing username or password
+ *      401:
+ *        description: Invalid credentials
+ *      500:
+ *        description: Server error during login
+ * 
+ * Swagger block that will document the '/users/login' endpoint. 
+ * It'll accept a POST req with 'username' and 'password'
+ * Returns error on failure
+ */
+
 router.post('/login', userController.login); //POST/login request will call login function
 
 module.exports = router;        //exporting the router object to be used in app server
