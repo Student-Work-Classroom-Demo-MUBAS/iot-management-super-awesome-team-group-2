@@ -32,3 +32,19 @@ async function createReading(deviceId, temperature, humidity, soilMoisture, time
   return result.rows[0];
 }
 
+// Delete a reading by ID
+async function deleteReading(readingId) {
+  const result = await pool.query(
+    'DELETE FROM sensor_readings WHERE reading_id = $1 RETURNING *;',
+    [readingId]
+  );
+  return result.rows[0];
+}
+
+// Exporting the functions to be used in other parts of the application
+module.exports = {
+  getAllReadings,
+  getReadingsByDeviceId,
+  createReading,
+  deleteReading,
+};
