@@ -7,14 +7,17 @@ const options = {
         openapi: '3.0.0',       //swagger version
         info: {
             title: 'IoT Backend API',
-            version:'1.0.0',        //Actual API version
+            version: '1.0.0',        //Actual API version
             description: 'API Documentation for the IoT Backend',
         },
         servers:[
             {
-                url: 'http://localhost:300/api',        //Base URL for API
+                url: 'http://localhost:3000/api',        //Base URL for API
             },
         ],
     },
     apis: ['./routes/*.js'], //look inside routes folder for documentation
 };
+
+const swaggerSpec = swaggerJsdoc(options);
+module.exports = swaggerSpec;
