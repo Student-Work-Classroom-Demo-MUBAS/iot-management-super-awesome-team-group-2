@@ -11,7 +11,7 @@ const char* ssid = "Design Studio";
 const char* password = "123456789";
 
 //---------Server------------
-const char* serverUrl = "http://YOUR_SERVER_IP:PORT/endpoint"
+const char* serverUrl = "http://192.168.1.149:3000/sensor-readings"
 
 
 // -------------------- DS18B20 Setup --------------------
@@ -84,7 +84,7 @@ void loop() {
   soilPercent = constrain(soilPercent, 0, 100);
 
   // --- Create JSON ---
-  StaticJsonDocument<200> doc;
+  StaticJsonDocument<256> doc;
   doc["device_id"] = 1;
   doc["temperature"] = dsTemp;
   doc["humidity"] = humidity;
