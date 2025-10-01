@@ -1,6 +1,7 @@
 #include <OneWire.h>            //Library to communicate on the OneWire bus
 #include <DallasTemperature.h>  //Library to get readings from DS18B20
 #include <DHT.h>                  // Library for DHT11 humidity sensor
+#include <ArduinoJson.h>
 
 // -------------------- DS18B20 Setup --------------------
 #define ONE_WIRE_BUS 4   // GPIO4 for DS18B20
@@ -14,19 +15,20 @@ DHT dht(DHTPIN, DHTTYPE);        // Create DHT instance
 
 // -------------------- Soil Moisture Setup ----------------
 #define SOIL_PIN 2                // ADC pin for capacitive soil moisture sensor
-
+#define MOISTURE_DRY 3000
+#define MOISTURE_WET 1200
 
 void setup() {
   Serial.begin(115200); //Start serial monitor for debugging
-  sensors.begin();      //Start communication with the DS18B20 sensor
+  ds18b20.begin();      //Start communication with the DS18B20 sensor
   dht.begin();          // Initialize DHT11 sensor
 }
 
 void loop() {
 
   // -------- DS18B20 Reading --------
-  sensors.requestTemperatures();    // Request temperature readings
-  float tempC = sensors.getTempCByIndex(0); //Get temperature in Celcius
+  ds18b20.requestTemperatures();    // Request temperature readings
+  float dsTemp = ds18b20.getTempCByIndex(0); //Get temperature in Celcius
 
     //If no sensor found show warning
   if (tempC == DEVICE_DISCONNECTED_C) {
