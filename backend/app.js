@@ -6,6 +6,7 @@ const cors = require('cors');           //middleware to handle cross-origin requ
 //import user routes from routes folder
 const userRoutes = require('./routes/userRoutes');
 const deviceRoutes = require('./routes/deviceRoutes');
+const sensor_readingRoute = require('./routes/sensor_readingRoute');
 
 
 //import Swagger
@@ -22,10 +23,10 @@ app.use(bodyParser.json());     //to parse incoming requests with JSON payloads
 //Swagger docs route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+//mounting the user routes
 app.use('/api/users', userRoutes);
-//mounting the user routes to /api/users, e.g. POST /api/users/register or POST /api/users/login
-
 app.use('/api/devices', deviceRoutes);
+app.use('/api/sensor-readings', sensor_readingRoute);
 
 //testing if API is running
 app.get('/', (req, res)=>{
