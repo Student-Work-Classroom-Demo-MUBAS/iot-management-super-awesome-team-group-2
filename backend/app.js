@@ -5,6 +5,7 @@ const cors = require('cors');           //middleware to handle cross-origin requ
 
 //import user routes from routes folder
 const userRoutes = require('./routes/userRoutes');
+const deviceRoutes = require('./routes/deviceRoutes');
 
 
 //import Swagger
@@ -23,6 +24,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/users', userRoutes);
 //mounting the user routes to /api/users, e.g. POST /api/users/register or POST /api/users/login
+
+app.use('/api/devices', deviceRoutes);
 
 //testing if API is running
 app.get('/', (req, res)=>{

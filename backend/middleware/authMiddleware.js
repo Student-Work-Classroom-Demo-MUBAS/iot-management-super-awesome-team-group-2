@@ -12,12 +12,12 @@ module.exports = (req, res, next) =>{
     //validation function
     //checks if authorization header exists, if client did not send it i request
     //checks that the token is of bearer type 
-    if(!authHeader || !authHeader.startsWith('Bearer')){
+    if(!authHeader || !authHeader.startsWith('Bearer ')){
         return res.status(401).json({error:'Authorization header missing'});
         //HTTP error for UNAUTHORIZED
     }
     //token extraction from header
-    const token = authHeader.split('')[1];
+    const token = authHeader.split(' ')[1];
     // authHeader = "Bearer token123abcd"
     // authHeader.split
     // token = "token123abcd""
