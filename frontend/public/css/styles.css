@@ -7,3 +7,22 @@ body {
   background-attachment: fixed;
   color: white;
 }
+
+
+/* Headings styles with subtle shadow for text readability */
+h1, h3, h2 {
+  text-shadow: 1px 1px 4px #0009;
+}
+
+/* Card containing the live data - width constrained and centered */
+.live-data-card {
+  min-width: 330px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Spacing between main three stats blocks */
+#main-stats-row > div {
+  min-width: 95px;
+  margin-right: 5px;
+}
