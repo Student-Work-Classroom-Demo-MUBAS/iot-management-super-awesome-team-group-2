@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /api/sensor-readings:
+ * /sensor-readings:
  *   get:
  *     summary: Get all sensor readings
  *     tags: [Sensor Readings]
@@ -24,7 +24,7 @@
 
 /**
  * @swagger
- * /api/sensor-readings/device/{deviceId}:
+ * /sensor-readings/device/{deviceId}:
  *   get:
  *     summary: Get all sensor readings for a specific device
  *     tags: [Sensor Readings]
@@ -42,7 +42,7 @@
 
 /**
  * @swagger
- * /api/sensor-readings:
+ * /sensor-readings:
  *   post:
  *     summary: Create a new sensor reading
  *     tags: [Sensor Readings]
@@ -59,7 +59,7 @@
 
 /**
  * @swagger
- * /api/sensor-readings/{readingId}:
+ * /sensor-readings/{readingId}:
  *   delete:
  *     summary: Delete a sensor reading by ID
  *     tags: [Sensor Readings]
