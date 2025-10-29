@@ -26,3 +26,29 @@ h1, h3, h2 {
   min-width: 95px;
   margin-right: 5px;
 }
+
+/* Container for hourly data with padding and flex layout */
+#hourly-data {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+/* Each hourly data block styling */
+.hour-block {
+  background: rgba(40,65,110,0.9);
+  padding: 0.6rem 0.6rem;
+  margin: 0 3px 7px 0;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  font-size: 1rem;
+  min-width: 90px;
+}
+
+/* Footer positioning at bottom full width */
+footer.footer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
