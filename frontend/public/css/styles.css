@@ -1,6 +1,6 @@
 body {
   min-height: 100vh;
-  background-image: url('https://wallpaperaccess.com/full/3202438.jpg');
+  background-image: url('https://wallpaperaccess.com/full/3202438.jpg'); 
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -14,11 +14,20 @@ h1, h3, h2 {
   text-shadow: 1px 1px 4px #0009;
 }
 
+/* Set header (navbar) and footer background same as card's background */
+.navbar, 
+footer.footer, 
+.live-data-card {
+  background-color: rgba(27,44,72,0.88) !important; /* unified background */
+  color: white;
+}
+
 /* Card containing the live data - width constrained and centered */
 .live-data-card {
   min-width: 330px;
-  max-width: 420px;
+  max-width: 600px;
   margin: 0 auto;
+  padding: 2rem 1.5rem;
 }
 
 /* Spacing between main three stats blocks */
@@ -51,4 +60,13 @@ footer.footer {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.dashboard-container .col-md-7 {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.dashboard-container .row {
+  gap: 2rem;
 }
