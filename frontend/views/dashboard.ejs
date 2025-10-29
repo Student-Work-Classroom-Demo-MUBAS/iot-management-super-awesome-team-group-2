@@ -38,3 +38,38 @@
         <div class="card text-white rounded-4 shadow live-data-card" style="background: rgba(27,44,72,0.88);">
           <div class="card-body">
             <h3 class="card-title mb-4">Chamama Greenhouse - Live Data</h3>
+
+            <%# Row for temperature, moisture, humidity %>
+            <div class="d-flex justify-content-between mb-4" id="main-stats-row">
+              <%# Temperature %>
+              <div class="text-center flex-fill">
+                <div style="font-size:2.2rem;">&#x1F321;</div>
+                <div class="fs-2 fw-bold" id="temperature-value">--°C</div>
+                <span class="text-info">Temperature</span>
+              </div>
+              <%# Moisture %>
+              <div class="text-center flex-fill">
+                <div style="font-size:2.2rem;">&#x1F4A7;</div>
+                <div class="fs-2 fw-bold" id="moisture-value">--%</div>
+                <span class="text-info">Moisture</span>
+              </div>
+              <%# Humidity %>
+              <div class="text-center flex-fill">
+                <div style="font-size:2.2rem;">&#x1F30A;</div>
+                <div class="fs-2 fw-bold" id="humidity-value">--%</div>
+                <span class="text-info">Humidity</span>
+              </div>
+            </div>
+
+            <%# Separator line %>
+            <hr />
+            <%# Container for hourly data blocks inserted dynamically %>
+            <div id="hourly-data" class="d-flex flex-wrap justify-content-between"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+        
