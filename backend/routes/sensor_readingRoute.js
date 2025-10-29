@@ -106,9 +106,9 @@ const router = express.Router();
 //import controller functions
 const sensor_readingController = require('../controllers/sensor_readingController');
 //import authentication middleware
-//const authMiddleware = require('../middleware/authMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
 
-//router.use(authMiddleware);
+router.use(authMiddleware);
 
 //CRUD operations
 //fetch all sensor readings
