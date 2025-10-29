@@ -23,7 +23,7 @@ footer.footer,
 }
 
 .navbar-brand {
-  font-size: 1.2rem; /* smaller than Bootstrap default fs-4 */
+  font-size: 1.5rem; /* smaller than Bootstrap default fs-4 */
   font-weight: 600;  /* slightly bold but not too heavy */
   white-space: nowrap; /* avoids breaking into multiple lines */
 }
