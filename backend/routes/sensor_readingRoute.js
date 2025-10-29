@@ -114,6 +114,8 @@ router.use(authMiddleware);
 //fetch all sensor readings
 router.get('/', sensor_readingController.getAllReadings);
 
+router.get('/latest', sensor_readingController.getLatestReading);
+
 //GET api/sensor_readings/device/:deviceId
 // fetch all readings for a specific device
 router.get('/device/:deviceId', sensor_readingController.getReadingsByDeviceId);
