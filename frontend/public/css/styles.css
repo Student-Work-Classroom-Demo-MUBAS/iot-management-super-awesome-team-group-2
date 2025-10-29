@@ -1,0 +1,9 @@
+body {
+  min-height: 100vh;
+  background-image: url('https://wallpaperaccess.com/full/3202438.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+}

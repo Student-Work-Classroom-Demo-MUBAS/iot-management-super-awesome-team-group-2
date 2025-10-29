@@ -4,9 +4,14 @@ const bodyParser = require('body-parser');      //middleware for parsing JSON
 const cors = require('cors');           //middleware to handle cross-origin requests
 const path = require('path'); 
 
-app.set('view wngine', 'ejs');
+const app = express();    //create express app
+
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'frontend/views'));
 app.use(express.static(path.join(__dirname, 'frontend/public')));
+
+app.use(cors());        //enable CORS
+app.use(bodyParser.json());     //to parse incoming requests with JSON payloads
 
 //import user routes from routes folder
 const userRoutes = require('./routes/userRoutes');
@@ -16,13 +21,7 @@ const sensor_readingRoute = require('./routes/sensor_readingRoute');
 
 //import Swagger
 const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./config/swagger');
-
-//define express app
-const app = express();
-
-app.use(cors());        //enable CORS
-app.use(bodyParser.json());     //to parse incoming requests with JSON payloads  
+const swaggerSpec = require('./config/swagger');  
 
 
 //Swagger docs route
@@ -36,6 +35,11 @@ app.use('/api/sensor-readings', sensor_readingRoute);
 //testing if API is running
 app.get('/', (req, res)=>{
     res.send('IoT Backend API running ...');
+});
+
+//serving the dashboard ejs page
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard'); 
 });
 
 //export app to use in server or in testing
