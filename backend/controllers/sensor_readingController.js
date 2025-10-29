@@ -39,7 +39,15 @@ async function getLatestReading(req, res) {
   }
 }
 
-
+async function getHourlyReadings(req, res) {
+  try {
+    const hours = parseInt(req.query.hours) || 3; // get value from query string, fallback 6
+    const readings = await sensorReadingModel.getHourlyReadings(hours);
+    res.status(200).json(readings);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch hourly sensor data' });
+  }
+}
 
 async function createReading(req, res) {
   try {
@@ -70,6 +78,7 @@ module.exports = {
   getAllReadings,
   getReadingsByDeviceId,
   getLatestReading,
+  getHourlyReadings,
   createReading,
   deleteReading,
 };

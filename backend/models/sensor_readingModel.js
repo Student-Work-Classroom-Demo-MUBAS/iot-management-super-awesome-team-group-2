@@ -73,6 +73,7 @@ module.exports = {
   getAllReadings,
   getReadingsByDeviceId,
   getLatestReading,
+  getHourlyReadings,
   createReading,
   deleteReading,
 };
