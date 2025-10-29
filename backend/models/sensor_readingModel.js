@@ -29,6 +29,24 @@ async function getLatestReading() {
   return result.rows[0];  // return the latest reading
 }
 
+// Fetch readings for each past hour (adjust hours as needed)
+async function getHourlyReadings(hours = 6) {
+  const result = await pool.query(
+    `SELECT 
+        date_trunc('hour', timestamp) as hour,
+        AVG(temperature) as avg_temperature,
+        AVG(humidity) as avg_humidity,
+        AVG(soil_moisture) as avg_moisture
+    FROM sensor_readings
+    WHERE timestamp >= NOW() - INTERVAL '${hours} hours'
+    GROUP BY hour
+    ORDER BY hour DESC
+    LIMIT $1;`,
+    [hours]
+  );
+  return result.rows;
+}
+
 
 // Create a new sensor reading
 // $ are placeholders for parameters
@@ -54,6 +72,7 @@ async function deleteReading(readingId) {
 module.exports = {
   getAllReadings,
   getReadingsByDeviceId,
+  getLatestReading,
   createReading,
   deleteReading,
 };
