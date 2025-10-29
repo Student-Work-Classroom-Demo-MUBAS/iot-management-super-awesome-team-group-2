@@ -16,9 +16,16 @@
     <span class="navbar-brand fs-4 fw-bold">
       ❄️ Chamama Greenhouse - Eastern Wing
     </span>
-    <div class="ms-auto">
+
+
+    <!--<div class="ms-auto">
       <a href="/" class="btn btn-dark me-2">Home</a>
       <a href="#" class="btn btn-warning fw-bold">View Charts</a>
+    </div>-->
+
+    <div class="ms-auto">
+        <a href="/" class="btn btn-home me-2">Home</a>
+         <a href="#" class="btn btn-view-charts">View Charts</a>
     </div>
   </nav>
 
@@ -27,15 +34,15 @@
   <main class="container py-5">
     <div class="row">
       <%# Left side with title and description %>
-      <div class="col-md-7 d-flex flex-column justify-content-center text-white">
-        <h1 class="fw-bold display-5 mb-3">IoT Greenhouse Monitoring</h1>
-        <p class="lead">
+      <div class="col-md-6 d-flex flex-column justify-content-center text-white">
+        <h1 class="fw-bold mb-3" style="font-size:2rem;">IoT Greenhouse Monitoring</h1>
+        <p class="lead" style="font-size: 1rem;">
           Monitor Temperature, Moisture, and Humidity in real-time with accurate live updates.
         </p>
       </div>
       <%# Right side card displaying live data %>
-      <div class="col-md-5">
-        <div class="card text-white rounded-4 shadow live-data-card" style="background: rgba(27,44,72,0.88);">
+      <div class="col-md-6">
+        <div class="card text-white rounded-4 shadow live-data-card" style="background: rgba(27,44,72,0.88); padding: 2rem;">
           <div class="card-body">
             <h3 class="card-title mb-4">Chamama Greenhouse - Live Data</h3>
 
