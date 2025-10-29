@@ -8,17 +8,21 @@ document.addEventListener('DOMContentLoaded', () => {
    * and updates the sensor values in the dashboard card.
    * Replace with real data fetching logic as needed.
    */
-function updateLiveData() {
-    const tempElem = document.getElementById('temperature-value');
-    const moistureElem = document.getElementById('moisture-value');
-    const humidityElem = document.getElementById('humidity-value');
+async function updateLiveData() {
+    try{ 
+        const response = await fetch('/api/sensor-readings/latest');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        
+        //update the data from DB to the dashboard
+        document.getElementById('temperature-value').textContent = `${data.temperature}°C`;
+        document.getElementById('moisture-value').textContent = `${data.soil_moisture}%`;
+        document.getElementById('humidity-value').textContent = `${data.humidity}%`;
 
-// Check if elements exist before updating to avoid runtime errors
-    if (tempElem && moistureElem && humidityElem) {
-      // Simulate sensor values with random numbers (replace with actual API calls)
-      tempElem.textContent = `${(20 + Math.random() * 10).toFixed(1)}°C`;
-      moistureElem.textContent = `${(40 + Math.random() * 20).toFixed(0)}%`;
-      humidityElem.textContent = `${(50 + Math.random() * 30).toFixed(0)}%`;
+    } catch (error) {
+        console.error('Failed to fetch live data:', error);
     }
   }
 

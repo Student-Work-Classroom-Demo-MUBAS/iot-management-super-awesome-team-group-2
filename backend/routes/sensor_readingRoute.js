@@ -120,6 +120,9 @@ router.get('/latest', sensor_readingController.getLatestReading);
 // fetch all readings for a specific device
 router.get('/device/:deviceId', sensor_readingController.getReadingsByDeviceId);
 
+//route for latest sensor reading
+router.get('/latest', sensorReadingController.getLatestReading);
+
 //POST api/sensor-readings
 //create a new sensor reading
 router.post('/', sensor_readingController.createReading);

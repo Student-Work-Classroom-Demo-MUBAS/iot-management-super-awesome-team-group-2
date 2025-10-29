@@ -1,4 +1,5 @@
 const sensorReadingModel = require('../models/sensor_readingModel');
+const pool = require('../dbPool');
 
 // Get all sensor readings
 async function getAllReadings(req, res) {
@@ -10,6 +11,9 @@ async function getAllReadings(req, res) {
   }
 }
 
+
+
+
 //getting sensor readings by device ID
 async function getReadingsByDeviceId(req, res) {
   try {
@@ -20,6 +24,22 @@ async function getReadingsByDeviceId(req, res) {
     res.status(500).json({ error: 'Failed to fetch sensor readings for device' });
   }
 }
+
+// controller method to get the latest sensor reading
+async function getLatestReading(req, res) {
+  try {
+    const latestReading = await sensorReadingModel.getLatestReading();
+    if (!latestReading) {
+      return res.status(404).json({ message: 'No sensor readings found' });
+    }
+    res.status(200).json(latestReading);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+
 
 async function createReading(req, res) {
   try {
@@ -49,6 +69,7 @@ async function deleteReading(req, res) {
 module.exports = {
   getAllReadings,
   getReadingsByDeviceId,
+  getLatestReading,
   createReading,
   deleteReading,
 };
