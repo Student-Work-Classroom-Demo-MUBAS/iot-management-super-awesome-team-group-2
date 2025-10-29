@@ -2,6 +2,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');      //middleware for parsing JSON
 const cors = require('cors');           //middleware to handle cross-origin requests
+const path = require('path'); 
+
+app.set('view wngine', 'ejs');
+app.set('views', path.join(__dirname, 'frontend/views'));
+app.use(express.static(path.join(__dirname, 'frontend/public')));
 
 //import user routes from routes folder
 const userRoutes = require('./routes/userRoutes');
