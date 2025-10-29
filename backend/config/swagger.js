@@ -12,9 +12,28 @@ const options = {
         },
         servers:[
             {
-                url: 'http://localhost:3000/api',        //Base URL for API
+                url: 'http://localhost:3000/api',
+                description: 'Local server',        //Base URL for API
             },
         ],
+
+
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                    description: 'Enter JWT token in format **Bearer &lt;token&gt;**',
+                },
+            },
+        },
+        security: [
+            {
+                bearerAuth: [],
+            },
+        ],
+        
     },
     apis: ['./routes/*.js'], //look inside routes folder for documentation
 };
