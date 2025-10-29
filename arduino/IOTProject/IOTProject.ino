@@ -7,8 +7,8 @@
 
 
 //--------WiFi-----------
-const char* ssid = "Design Studio";
-const char* password = "123456789";
+const char* ssid = "Airtel_4G_SMARTBOX_7A74";
+const char* password = "02949505";
 
 //---------Server------------
 const char* serverUrl = "http://192.168.1.149:3000/api/sensor-readings"
@@ -67,7 +67,7 @@ void loop() {
  //float airTemp = dht.readTemperature();    // Read temperature in Celsius
  
  
- if (isnan(humidity) || isnan(airTemp)) {   // Check if reading failed
+ if (isnan(humidity)) {   // Check if reading failed
     Serial.println("Failed to read from DHT11!");
   } else {
     Serial.print("DHT11 Humidity: ");
@@ -98,6 +98,8 @@ void loop() {
     HTTPClient http;
     http.begin(serverUrl);
     http.addHeader("Content-Type", "application/json");
+    http.addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoidGVzdHVzZXIiLCJpYXQiOjE3NjE3MzIwNTgsImV4cCI6MTc2MTczOTI1OH0.0ToCG-fJzUppkv_UQTmzksZdm4M9L2o7a4eTpAA0nOY");
+
 
     int httpResponseCode = http.POST(jsonData);
 
