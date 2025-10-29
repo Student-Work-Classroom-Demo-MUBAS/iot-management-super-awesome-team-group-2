@@ -11,13 +11,13 @@ const char* ssid = "Design Studio";
 const char* password = "123456789";
 
 //---------Server------------
-const char* serverUrl = "http://192.168.1.149:3000/sensor-readings"
+const char* serverUrl = "http://192.168.1.149:3000/api/sensor-readings"
 
 
 // -------------------- DS18B20 Setup --------------------
 #define ONE_WIRE_BUS 4   // GPIO4 for DS18B20
 OneWire oneWire(ONE_WIRE_BUS);  //Setting up a OneWire instance to communicate with any OneWire device
-DallasTemperature ds18b20(&oneWire);  //Passing the OneWire reference to Dallas Temperature library
+DallasTemperature sensors(&oneWire);  //Passing the OneWire reference to Dallas Temperature library
 
 // -------------------- DHT11 Setup ----------------------
 #define DHTPIN 5                  // GPIO5 connected to DHT11 data pin
@@ -41,15 +41,15 @@ void setup() {
   }
   Serial.println("\nConnected to WiFi!");
 
-  ds18b20.begin();      //Start communication with the DS18B20 sensor
+  sensors.begin();      //Start communication with the DS18B20 sensor
   dht.begin();          // Initialize DHT11 sensor
 }
 
 void loop() {
 
   // -------- DS18B20 Reading --------
-  ds18b20.requestTemperatures();    // Request temperature readings
-  float dsTemp = ds18b20.getTempCByIndex(0); //Get temperature in Celcius
+  sensors.requestTemperatures();    // Request temperature readings
+  float dsTemp = sensors.getTempCByIndex(0); //Get temperature in Celcius
 
     //If no sensor found show warning
   if (dsTemp == DEVICE_DISCONNECTED_C) {
@@ -80,15 +80,15 @@ void loop() {
 
  // --- Read Soil Moisture ---
   int soilRaw = analogRead(SOIL_PIN);
-  int soilPercent = map(soilRaw, MOISTURE_DRY, MOISTURE_WET, 0, 100);
-  soilPercent = constrain(soilPercent, 0, 100);
+  int soilMoisture = map(soilRaw, MOISTURE_DRY, MOISTURE_WET, 0, 100);
+  soilMoisture = constrain(soilMoisture, 0, 100);
 
   // --- Create JSON ---
   StaticJsonDocument<256> doc;
   doc["device_id"] = 1;
   doc["temperature"] = dsTemp;
   doc["humidity"] = humidity;
-  doc["soil_moisture"] = soilPercent;
+  doc["soil_moisture"] = soilMoisture;
 
   String jsonData;
   serializeJson(doc, jsonData);
@@ -104,6 +104,7 @@ void loop() {
     if (httpResponseCode > 0) {
       Serial.print("Server response: ");
       Serial.println(httpResponseCode);
+      Serial.println(http.getString());
     } else {
       Serial.print("Error sending data: ");
       Serial.println(httpResponseCode);
