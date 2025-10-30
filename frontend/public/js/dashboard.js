@@ -9,7 +9,7 @@ const moistureEl = document.getElementById("moisture-value");
 const hourlyDataContainer = document.getElementById("hourly-data");
 
 // Backend server base URL
-const BASE_URL = "http://192.168.1.149:3000/api/sensor-readings";
+const BASE_URL = "/api/sensor-readings";
 
 // Fetch latest reading
 async function fetchLatestReading() {
