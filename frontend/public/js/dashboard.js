@@ -63,14 +63,46 @@ async function fetchRecentReadings() {
   }
 }
 
-// Function to refresh everything
-async function updateDashboard() {
-  await fetchLatestReading();
-  await fetchRecentReadings();
+async function fetchHourlyAverages() {
+  try {
+    const res = await fetch("/api/sensor-readings/hourly?hours=3");
+    if (!res.ok) throw new Error("Failed to fetch hourly averages");
+    const data = await res.json();
+
+    // Sort chronologically ascending (oldest first)
+    data.sort((a, b) => new Date(a.hour) - new Date(b.hour));
+
+    // logging a warning and safely stopping instead of failing, If it doesn’t find that element in the page
+    const hourlyAvgContainer = document.getElementById("hourly-averages");
+    if (!hourlyAvgContainer) {
+        console.warn("No container found for hourly averages");
+        return;
+    }
+
+
+    // Clear previous blocks
+    hourlyDataContainer.innerHTML = "";
+
+    data.forEach((r) => {
+      const hour = new Date(r.hour);
+      const timeStr = hour.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+      const block = document.createElement("div");
+      block.classList.add("hour-block", "text-center");
+      block.innerHTML = `
+        <div><strong>${timeStr}</strong></div>
+        <div>🌡️ ${Number(r.avg_temperature).toFixed(1)}°C</div>
+        <div>💧 ${Number(r.avg_moisture).toFixed(1)}%</div>
+        <div>💨 ${Number(r.avg_humidity).toFixed(1)}%</div>
+      `;
+      hourlyDataContainer.appendChild(block);
+    });
+  } catch (err) {
+    console.error("Error loading hourly averages:", err);
+  }
 }
 
-// Run once at startup
-updateDashboard();
 
-// Refresh every 5 seconds (adjust if needed)
-setInterval(updateDashboard, 5000);
+// Fetch every 5 seconds
+fetchReadings();
+setInterval(fetchReadings, 5000);

@@ -30,7 +30,7 @@ async function getLatestReading() {
 }
 
 // Fetch readings for each past hour (adjust hours as needed)
-async function getHourlyReadings(hours = 6) {
+async function getHourlyReadings(hours = 3) {
   const result = await pool.query(
     `SELECT 
         date_trunc('hour', timestamp) as hour,
@@ -40,8 +40,7 @@ async function getHourlyReadings(hours = 6) {
     FROM sensor_readings
     WHERE timestamp >= NOW() - INTERVAL '${hours} hours'
     GROUP BY hour
-    ORDER BY hour DESC
-    LIMIT $1;`,
+    ORDER BY hour ASC;`
     [hours]
   );
   return result.rows;
