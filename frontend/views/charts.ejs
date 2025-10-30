@@ -1,0 +1,59 @@
+<%- include('../layouts/layout') %>
+
+<section class="charts" style="padding: 20px;">
+  <h2>Sensor Readings Charts</h2>
+  <canvas id="sensorChart" width="900" height="400"></canvas>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  async function loadChartData() {
+    try {
+      const res = await fetch('/api/readings/chart-data'); // matches backend route
+      const data = await res.json();
+
+      // Group data by sensor type
+      const sensors = {};
+      data.forEach(r => {
+        if (!sensors[r.sensor_type]) sensors[r.sensor_type] = [];
+        sensors[r.sensor_type].push({ x: r.recorded_at, y: r.reading_value });
+      });
+
+      const colors = ['red', 'blue', 'green', 'orange', 'purple'];
+      const datasets = Object.keys(sensors).map((type, idx) => ({
+        label: type,
+        data: sensors[type],
+        borderColor: colors[idx % colors.length],
+        fill: false,
+        tension: 0.1
+      }));
+
+      const ctx = document.getElementById('sensorChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: { datasets },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: 'top' } },
+          parsing: { xAxisKey: 'x', yAxisKey: 'y' },
+          scales: {
+            x: { 
+              type: 'time',
+              time: { unit: 'minute', tooltipFormat: 'MMM d, h:mm a' },
+              title: { display: true, text: 'Time' }
+            },
+            y: { title: { display: true, text: 'Sensor Value' } }
+          }
+        }
+      });
+
+    } catch (error) {
+      console.error('Error loading chart data:', error);
+    }
+  }
+
+  loadChartData();
+
+  // Optional: Refresh every 60 seconds for live updates
+  setInterval(loadChartData, 60000);
+</script>

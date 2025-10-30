@@ -133,5 +133,7 @@ router.post('/', sensor_readingController.createReading);
 //delete a sensor by Id
 router.delete('/:readingId', sensor_readingController.deleteReading);
 
+// Add new route for chart data
+router.get('/chart-data', sensor_readingController.getChartData);
 //export router
 module.exports = router;

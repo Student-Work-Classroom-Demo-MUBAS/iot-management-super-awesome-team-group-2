@@ -21,7 +21,7 @@ const userRoutes = require('./routes/userRoutes');
 const deviceRoutes = require('./routes/deviceRoutes');
 const sensor_readingRoute = require('./routes/sensor_readingRoute');
 const dashboardRoute = require('./routes/dashboardRoute');
-
+const pageRoutes = require('./routes/pageRoutes');
 //import Swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');  
@@ -35,6 +35,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/devices', deviceRoutes);
 app.use('/api/sensor-readings', sensor_readingRoute);
 app.use('/', dashboardRoute);
+app.use('/charts', pageRoutes);
+
 
 //testing if API is running
 // app.get('/', (req, res)=>{
