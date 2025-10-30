@@ -34,12 +34,12 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/users', userRoutes);
 app.use('/api/devices', deviceRoutes);
 app.use('/api/sensor-readings', sensor_readingRoute);
-app.use('/dashboard', dashboardRoute);
+app.use('/', dashboardRoute);
 
 //testing if API is running
-app.get('/', (req, res)=>{
-    res.send('IoT Backend API running ...');
-});
+// app.get('/', (req, res)=>{
+//     res.send('IoT Backend API running ...');
+// });
 
 //serving the dashboard ejs page
 //app.get('/dashboard', (req, res) => {
