@@ -121,9 +121,9 @@ router.get('/latest', sensor_readingController.getLatestReading);
 router.get('/device/:deviceId', sensor_readingController.getReadingsByDeviceId);
 
 //route for latest sensor reading
-router.get('/latest', sensorReadingController.getLatestReading);
+router.get('/latest', sensor_readingController.getLatestReading);
 
-router.get('/hourly', sensorReadingController.getHourlyReadings);
+router.get('/hourly', sensor_readingController.getHourlyReadings);
 
 //POST api/sensor-readings
 //create a new sensor reading

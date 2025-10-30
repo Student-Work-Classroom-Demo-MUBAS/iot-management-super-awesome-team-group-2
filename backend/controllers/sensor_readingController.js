@@ -1,5 +1,5 @@
 const sensorReadingModel = require('../models/sensor_readingModel');
-const pool = require('../dbPool');
+const pool = require('../utils/db');
 
 // Get all sensor readings
 async function getAllReadings(req, res) {
