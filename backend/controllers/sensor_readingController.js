@@ -11,9 +11,6 @@ async function getAllReadings(req, res) {
   }
 }
 
-
-
-
 //getting sensor readings by device ID
 async function getReadingsByDeviceId(req, res) {
   try {
