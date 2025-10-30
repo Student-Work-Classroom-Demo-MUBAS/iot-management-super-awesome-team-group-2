@@ -20,7 +20,7 @@ app.use(bodyParser.json());     //to parse incoming requests with JSON payloads
 const userRoutes = require('./routes/userRoutes');
 const deviceRoutes = require('./routes/deviceRoutes');
 const sensor_readingRoute = require('./routes/sensor_readingRoute');
-
+const dashboardRoute = require('./routes/dashboardRoute');
 
 //import Swagger
 const swaggerUi = require('swagger-ui-express');
@@ -34,16 +34,17 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/users', userRoutes);
 app.use('/api/devices', deviceRoutes);
 app.use('/api/sensor-readings', sensor_readingRoute);
+app.use('/', dashboardRoute);
 
 //testing if API is running
-app.get('/', (req, res)=>{
-    res.render('dashboard');
-});
+// app.get('/', (req, res)=>{
+//     res.send('IoT Backend API running ...');
+// });
 
 //serving the dashboard ejs page
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard'); 
-});
+//app.get('/dashboard', (req, res) => {
+//  res.render('dashboard'); 
+//});
 
 //export app to use in server or in testing
 module.exports = app;
