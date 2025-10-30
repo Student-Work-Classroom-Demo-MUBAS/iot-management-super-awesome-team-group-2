@@ -20,7 +20,7 @@ app.use(bodyParser.json());     //to parse incoming requests with JSON payloads
 const userRoutes = require('./routes/userRoutes');
 const deviceRoutes = require('./routes/deviceRoutes');
 const sensor_readingRoute = require('./routes/sensor_readingRoute');
-
+const dashboardRoute = require('./routes/dashboardRoute');
 
 //import Swagger
 const swaggerUi = require('swagger-ui-express');
@@ -34,6 +34,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/users', userRoutes);
 app.use('/api/devices', deviceRoutes);
 app.use('/api/sensor-readings', sensor_readingRoute);
+app.use('/api/dashboard', dashboardRoute);
 
 //testing if API is running
 app.get('/', (req, res)=>{

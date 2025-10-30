@@ -25,3 +25,4 @@ This project collects environmental data (soil mosture, humidity, and temperatur
 -Install the libraries above
 -Select ESP32C3 Dev Module in Tools > Board
 -Upload and open Serial Monitor at 115200 baud
+-Add recent authorization token to be able to send data from ESP32 via server to database
