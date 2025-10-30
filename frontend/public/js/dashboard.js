@@ -46,3 +46,7 @@ async function fetchReadings() {
     console.error("Error loading readings:", err);
   }
 }
+
+// Fetch every 5 seconds
+fetchReadings();
+setInterval(fetchReadings, 5000);
