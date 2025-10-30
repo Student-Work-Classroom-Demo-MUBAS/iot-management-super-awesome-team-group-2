@@ -1,48 +1,52 @@
-// dashboard.js
-// Script to update live sensor data on the dashboard and handle button interactions
+// -------------------------------
+//  Dashboard Live Update Script
+// -------------------------------
 
-// Wait until the DOM content is fully loaded before running scripts
-document.addEventListener('DOMContentLoaded', () => {
-  /**
-   * updateLiveData function simulates fetching live data 
-   * and updates the sensor values in the dashboard card.
-   * Replace with real data fetching logic as needed.
-   */
-async function updateLiveData() {
-    try{ 
-        const response = await fetch('/api/sensor-readings/latest');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        
-        //update the data from DB to the dashboard
-        document.getElementById('temperature-value').textContent = `${data.temperature}°C`;
-        document.getElementById('moisture-value').textContent = `${data.soil_moisture}%`;
-        document.getElementById('humidity-value').textContent = `${data.humidity}%`;
+const tempEl = document.getElementById("temperature-value");
+const humidityEl = document.getElementById("humidity-value");
+const moistureEl = document.getElementById("moisture-value");
+const hourlyDataContainer = document.getElementById("hourly-data");
 
-    } catch (error) {
-        console.error('Failed to fetch live data:', error);
-    }
-  }
+// Function to fetch readings from backend API
+async function fetchReadings() {
+  try {
+    const res = await fetch("/api/sensor-readings");
+    if (!res.ok) throw new Error("Failed to fetch readings");
+    const data = await res.json();
 
-  // Initial call to show live data right away on page load
-  updateLiveData();
+    if (data.length === 0) return;
 
-  // Set interval to update live data every 10,000 milliseconds (10 seconds)
-  setInterval(updateLiveData, 10000);
+    // Get the most recent reading
+    const latest = data[data.length - 1];
 
-/**
-   * Attach event listener to the View Charts button
-   * This can be extended to open charts, load new content, etc.
-   */   
-  const viewChartsBtn = document.querySelector('.btn-view-charts');
-  if (viewChartsBtn) {
-    viewChartsBtn.addEventListener('click', (e) => {
-      e.preventDefault();  // Prevent default anchor navigation
+    // Update main values
+    tempEl.textContent = `${latest.temperature.toFixed(1)}°C`;
+    humidityEl.textContent = `${latest.humidity.toFixed(1)}%`;
+    moistureEl.textContent = `${latest.soil_moisture.toFixed(1)}%`;
 
-      // For now, simply alert. Replace with chart display logic.
-      alert('This will show charts. Replace with your chart view code.');
+    // Update hourly data blocks (last 6 readings)
+    hourlyDataContainer.innerHTML = "";
+    const recent = data.slice(-6).reverse(); // show newest first
+    recent.forEach((r) => {
+      const block = document.createElement("div");
+      block.classList.add("hour-block");
+      const time = new Date(r.timestamp).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      block.innerHTML = `
+        <div><strong>${time}</strong></div>
+        <div>${r.temperature.toFixed(1)}°C</div>
+        <div>${r.humidity.toFixed(1)}%</div>
+        <div>${r.soil_moisture.toFixed(1)}%</div>
+      `;
+      hourlyDataContainer.appendChild(block);
     });
+  } catch (err) {
+    console.error("Error loading readings:", err);
   }
-});
+}
+
+// Fetch every 5 seconds
+fetchReadings();
+setInterval(fetchReadings, 5000);

@@ -1,5 +1,6 @@
 const sensorReadingModel = require('../models/sensor_readingModel');
-const pool = require('../dbPool');
+//const pool = require('../dbPool');
+const pool = require('../utils/db');
 
 // Get all sensor readings
 async function getAllReadings(req, res) {
@@ -10,9 +11,6 @@ async function getAllReadings(req, res) {
     res.status(500).json({ error: 'Failed to fetch sensor readings' });
   }
 }
-
-
-
 
 //getting sensor readings by device ID
 async function getReadingsByDeviceId(req, res) {

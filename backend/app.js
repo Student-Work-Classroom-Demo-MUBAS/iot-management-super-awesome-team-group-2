@@ -37,7 +37,7 @@ app.use('/api/sensor-readings', sensor_readingRoute);
 
 //testing if API is running
 app.get('/', (req, res)=>{
-    res.send('IoT Backend API running ...');
+    res.render('dashboard');
 });
 
 //serving the dashboard ejs page
