@@ -51,8 +51,8 @@ async function getHourlyReadings(req, res) {
 
 async function createReading(req, res) {
   try {
-    const { device_id, temperature, humidity, soil_moisture, timestamp } = req.body;
-    const newReading = await sensorReadingModel.createReading(device_id, temperature, humidity, soil_moisture, timestamp);
+    const { device_id, temperature, humidity, soil_moisture } = req.body;
+    const newReading = await sensorReadingModel.createReading(device_id, temperature, humidity, soil_moisture);
     res.status(201).json(newReading);
   } catch (err) {
     res.status(500).json({ error: 'Failed to create sensor reading' });

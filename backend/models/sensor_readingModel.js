@@ -50,11 +50,11 @@ async function getHourlyReadings(hours = 6) {
 
 // Create a new sensor reading
 // $ are placeholders for parameters
-async function createReading(deviceId, temperature, humidity, soilMoisture, timestamp) {
+async function createReading(deviceId, temperature, humidity, soilMoisture) {
   const result = await pool.query(
-    `INSERT INTO sensor_readings (device_id, temperature, humidity, soil_moisture, timestamp)
-     VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
-    [deviceId, temperature, humidity, soilMoisture, timestamp]
+    `INSERT INTO sensor_readings (device_id, temperature, humidity, soil_moisture)
+     VALUES ($1, $2, $3, $4) RETURNING *;`,
+    [deviceId, temperature, humidity, soilMoisture]
   );
   return result.rows[0];
 }
