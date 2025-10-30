@@ -34,7 +34,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/users', userRoutes);
 app.use('/api/devices', deviceRoutes);
 app.use('/api/sensor-readings', sensor_readingRoute);
-app.use('/api/dashboard', dashboardRoute);
+app.use('/dashboard', dashboardRoute);
 
 //testing if API is running
 app.get('/', (req, res)=>{
@@ -42,9 +42,9 @@ app.get('/', (req, res)=>{
 });
 
 //serving the dashboard ejs page
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard'); 
-});
+//app.get('/dashboard', (req, res) => {
+//  res.render('dashboard'); 
+//});
 
 //export app to use in server or in testing
 module.exports = app;
